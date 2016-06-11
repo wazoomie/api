@@ -18,7 +18,7 @@ interface ResponseInterface
     /**
      * Get the Request.
      *
-     * @return mixed
+     * @return RequestInterface
      */
     public function getRequest();
 

@@ -34,6 +34,11 @@ abstract class AbstractApiManager implements Contracts\ApiManagerInterface
     protected $file;
 
     /**
+     * @var int
+     */
+    protected $cacheExpiry = 10;
+
+    /**
      * @var array
      */
     protected $segments = [];
@@ -42,6 +47,11 @@ abstract class AbstractApiManager implements Contracts\ApiManagerInterface
      * @var array
      */
     protected $parameters = [];
+
+    /**
+     * @var array
+     */
+    protected $basicAuth = [];
 
     /**
      * @var FactoryInterface
@@ -88,6 +98,10 @@ abstract class AbstractApiManager implements Contracts\ApiManagerInterface
 
         if (config("{$this->configuration}.factory")) {
             $this->factory = config("{$this->configuration}.factory");
+        }
+
+        if (config("{$this->configuration}.cache")) {
+            $this->cacheExpiry = (int) config("{$this->configuration}.cache");
         }
 
         return $this;
@@ -354,6 +368,115 @@ abstract class AbstractApiManager implements Contracts\ApiManagerInterface
     }
 
     /**
+     * Set the Basic Auth username.
+     *
+     * @param $username
+     *
+     * @return $this;
+     */
+    public function setBasicAuthUsername($username)
+    {
+        $this->basicAuth['username'] = (string) $username;
+        return $this;
+    }
+
+    /**
+     * Get the Basic Auth username.
+     *
+     * @return string
+     */
+    public function getBasicAuthUsername()
+    {
+        return (string) $this->basicAuth['username'];
+    }
+
+    /**
+     * Get whether the Basic Auth username is set.
+     *
+     * @return bool
+     */
+    public function hasBasicAuthUsername()
+    {
+        return (bool) $this->basicAuth['username'];
+    }
+
+    /**
+     * Set the Basic Auth password.
+     *
+     * @param $password
+     *
+     * @return $this;
+     */
+    public function setBasicAuthPassword($password)
+    {
+        $this->basicAuth['password'] = (string) $password;
+        return $this;
+    }
+
+    /**
+     * Get the Basic Auth password.
+     *
+     * @return string
+     */
+    public function getBasicAuthPassword()
+    {
+        return (string) $this->basicAuth['password'];
+    }
+
+    /**
+     * Get whether the Basic Auth password is set.
+     *
+     * @return bool
+     */
+    public function hasBasicAuthPassword()
+    {
+        return (bool) $this->basicAuth['password'];
+    }
+
+    /**
+     * Get the Basic Auth Curl string.
+     *
+     * @return string
+     */
+    public function getBasicAuthCurlString()
+    {
+        return $this->basicAuth['username'] . ':' . $this->basicAuth['password'];
+    }
+
+    /**
+     * Set the expiry time of the cache.
+     *
+     * @param $time
+     *
+     * @return $this;
+     */
+    public function setCacheExpiryTime($time)
+    {
+        $this->cacheExpiry = (int) $time;
+        return $this;
+    }
+
+    /**
+     * Get the expiry time of the cache.
+     *
+     * @return int
+     */
+    public function getCacheExpiryTime()
+    {
+        return (int) $this->cacheExpiry;
+    }
+
+    /**
+     * Get whether the expiry time of the cache is set.
+     *
+     * @return bool
+     */
+    public function hasCacheExpiryTime()
+    {
+        return (bool) $this->cacheExpiry;
+    }
+
+    /**
      * Get the (processed) Response data.
      *
      * @return \Illuminate\Support\Collection
@@ -362,7 +485,7 @@ abstract class AbstractApiManager implements Contracts\ApiManagerInterface
     {
         $request    = $this->request->setManager($this)->get();
 
-        return app()->cache->remember('test', 10, function() use ($request) {
+        return app()->cache->remember('test', $this->getCacheExpiryTime(), function() use ($request) {
             $response = $this->response->setRequest($request)->response();
 
             if ($this->factory) {

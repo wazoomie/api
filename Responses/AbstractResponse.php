@@ -27,7 +27,7 @@ abstract class AbstractResponse implements Contracts\ResponseInterface
     /**
      * Get the Request.
      *
-     * @return mixed
+     * @return RequestInterface
      */
     public function getRequest()
     {
