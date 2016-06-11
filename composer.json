@@ -10,9 +10,10 @@
     }
   ],
   "require": {
-    "laravel/laravel": "v4.0.0-BETA4",
-    "illuminate/support": "v4.2.0-BETA1",
-    "wazoomie/support": "dev-master"
+    "laravel/laravel": ">=v4.*",
+    "illuminate/support": ">=v4.*",
+    "wazoomie/support": "dev-master",
+    "wazoomie/api": "dev-master"
   },
   "autoload": {
     "psr-4": {
