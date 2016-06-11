@@ -173,4 +173,80 @@ interface ApiManagerInterface
      * @return bool
      */
     public function hasParameter($key);
+
+    /**
+     * Set the Basic Auth username.
+     *
+     * @param $username
+     *
+     * @return $this;
+     */
+    public function setBasicAuthUsername($username);
+
+    /**
+     * Get the Basic Auth username.
+     *
+     * @return string
+     */
+    public function getBasicAuthUsername();
+
+    /**
+     * Get whether the Basic Auth username is set.
+     *
+     * @return bool
+     */
+    public function hasBasicAuthUsername();
+
+    /**
+     * Set the Basic Auth password.
+     *
+     * @param $password
+     *
+     * @return $this;
+     */
+    public function setBasicAuthPassword($password);
+
+    /**
+     * Get the Basic Auth password.
+     *
+     * @return string
+     */
+    public function getBasicAuthPassword();
+
+    /**
+     * Get whether the Basic Auth password is set.
+     *
+     * @return bool
+     */
+    public function hasBasicAuthPassword();
+
+    /**
+     * Get the Basic Auth Curl string.
+     *
+     * @return string
+     */
+    public function getBasicAuthCurlString();
+
+    /**
+     * Set the expiry time of the cache.
+     *
+     * @param $time
+     *
+     * @return $this;
+     */
+    public function setCacheExpiryTime($time);
+
+    /**
+     * Get the expiry time of the cache.
+     *
+     * @return int
+     */
+    public function getCacheExpiryTime();
+
+    /**
+     * Get whether the expiry time of the cache is set.
+     *
+     * @return bool
+     */
+    public function hasCacheExpiryTime();
 }
