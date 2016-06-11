@@ -15,10 +15,7 @@
   "autoload": {
     "psr-4": {
       "Wazoomie\\Api\\": ""
-    },
-    "files": [
-      "functions.php"
-    ]
+    }
   },
   "minimum-stability": "dev"
 }
