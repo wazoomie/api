@@ -1,0 +1,26 @@
+{
+  "name": "wazoomie/api",
+  "description": "A Generic API module for Laravel.",
+  "license": "GNUv3",
+  "homepage": "http://wazoomie.com",
+  "authors": [
+    {
+      "name": "Marc Roosendaal",
+      "email": "wazoomie@outlook.com"
+    }
+  ],
+  "require": {
+    "laravel/laravel": "v4.0.0-BETA4",
+    "illuminate/support": "v4.2.0-BETA1",
+    "wazoomie/support": "1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Wazoomie\\Api\\": ""
+    },
+    "files": [
+      "functions.php"
+    ]
+  },
+  "minimum-stability": "dev"
+}
