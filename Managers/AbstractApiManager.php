@@ -432,7 +432,7 @@ abstract class AbstractApiManager implements Contracts\ApiManagerInterface
      */
     public function hasBasicAuthUsername()
     {
-        return (bool) $this->basicAuth['username'];
+        return (bool) isset($this->basicAuth['username']);
     }
 
     /**
@@ -465,7 +465,7 @@ abstract class AbstractApiManager implements Contracts\ApiManagerInterface
      */
     public function hasBasicAuthPassword()
     {
-        return (bool) $this->basicAuth['password'];
+        return (bool) isset($this->basicAuth['password']);
     }
 
     /**
