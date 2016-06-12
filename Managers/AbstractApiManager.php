@@ -54,6 +54,16 @@ abstract class AbstractApiManager implements Contracts\ApiManagerInterface
     protected $basicAuth = [];
 
     /**
+     * @var string
+     */
+    protected $responseType = 'json';
+
+    /**
+     * @var array
+     */
+    protected $responsePath = [];
+
+    /**
      * @var FactoryInterface
      */
     protected $factory;
@@ -100,8 +110,20 @@ abstract class AbstractApiManager implements Contracts\ApiManagerInterface
             $this->factory = config("{$this->configuration}.factory");
         }
 
+        if (config("{$this->configuration}.responseType")) {
+            $this->responseType = (string) config("{$this->configuration}.responseType");
+        }
+
+        if (config("{$this->configuration}.responsePath")) {
+            $this->responsePath = (array) config("{$this->configuration}.responsePath");
+        }
+
         if (config("{$this->configuration}.cache")) {
             $this->cacheExpiry = (int) config("{$this->configuration}.cache");
+        }
+
+        if (config("{$this->configuration}.auth")) {
+            $this->basicAuth = (array) config("{$this->configuration}.auth");
         }
 
         return $this;
@@ -273,6 +295,19 @@ abstract class AbstractApiManager implements Contracts\ApiManagerInterface
     public function setParameters(array $parameters = [])
     {
         $this->parameters = (array) $parameters;
+        return $this;
+    }
+
+    /**
+     * Add parameters.
+     *
+     * @param array $parameters
+     *
+     * @return $this;
+     */
+    public function addParameters(array $parameters = [])
+    {
+        $this->parameters = (array) $this->parameters + $parameters;
         return $this;
     }
 
@@ -474,6 +509,72 @@ abstract class AbstractApiManager implements Contracts\ApiManagerInterface
     public function hasCacheExpiryTime()
     {
         return (bool) $this->cacheExpiry;
+    }
+
+    /**
+     * Set the response type.
+     *
+     * @param $responseType
+     *
+     * @return $this;
+     */
+    public function setResponseType($responseType)
+    {
+        $this->responseType = (string) $responseType;
+        return $this;
+    }
+
+    /**
+     * Get the response type.
+     *
+     * @return string
+     */
+    public function getResponseType()
+    {
+        return (string) $this->responseType;
+    }
+
+    /**
+     * Get whether the response type is set.
+     *
+     * @return bool
+     */
+    public function hasResponseType()
+    {
+        return (bool) $this->responseType;
+    }
+
+    /**
+     * Set the response path, this section will be extracted from the Response.
+     *
+     * @param array $responsePath
+     *
+     * @return $this;
+     */
+    public function setResponsePath(array $responsePath)
+    {
+        $this->responsePath = (array) $responsePath;
+        return $this;
+    }
+
+    /**
+     * Get the response path of the Response.
+     *
+     * @return array
+     */
+    public function getResponsePath()
+    {
+        return (array) $this->responsePath;
+    }
+
+    /**
+     * Get whether the response path of the Response is set.
+     *
+     * @return bool
+     */
+    public function hasResponsePath()
+    {
+        return (bool) $this->responsePath;
     }
 
     /**

@@ -249,4 +249,50 @@ interface ApiManagerInterface
      * @return bool
      */
     public function hasCacheExpiryTime();
+
+    /**
+     * Set the response type.
+     *
+     * @param $responseType
+     *
+     * @return $this;
+     */
+    public function setResponseType($responseType);
+
+    /**
+     * Get the response type.
+     *
+     * @return string
+     */
+    public function getResponseType();
+
+    /**
+     * Get whether the response type is set.
+     *
+     * @return bool
+     */
+    public function hasResponseType();
+
+    /**
+     * Set the response path, this section will be extracted from the Response.
+     *
+     * @param array $responsePath
+     *
+     * @return $this;
+     */
+    public function setResponsePath(array $responsePath);
+
+    /**
+     * Get the response path of the Response.
+     *
+     * @return array
+     */
+    public function getResponsePath();
+
+    /**
+     * Get whether the response path of the Response is set.
+     *
+     * @return bool
+     */
+    public function hasResponsePath();
 }
